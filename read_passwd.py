@@ -13,8 +13,6 @@ for line  in lines:
 print '** user : home directory **'
 for x in info : 
      print x,':',info[x][0]
-#    for y in info[x]:
-#        print(x,':',info[x][y])
 
 infile.close()
 
