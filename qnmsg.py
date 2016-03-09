@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
 import subprocess  
-from pprint import pprint 
 import re 
 
-ignore = ('nfsnobody')
-
 def passwd(): 
+    ignore = ('nfsnobody')
     infile = open("/etc/passwd", 'r') 
     lines =  infile.readlines()
     # declare empty dictionary
