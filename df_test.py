@@ -1,9 +1,14 @@
 #!/usr/bin/env python
-import os 
-cmd = "df -B G" 
-#os.system(cmd ) 
-f= os.popen(cmd) 
-f.readline()
-print " The size of the partition  "  
-for line in f.readlines(): 
-    print line.split()[-1]  , ' : ', line.split()[-3][:-1]
+
+import subprocess  
+from pprint import pprint 
+
+def df(): 
+    cmd = "df -B G" 
+    f= subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE) 
+    f.stdout.readline()
+    size = {} 
+    for line in f.stdout.readlines():
+        size [ line.split()[-1] ] = line.split()[1][:-1]  
+    return size 
+
