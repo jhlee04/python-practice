@@ -1,0 +1,48 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
+# 예시 데이터 (0/1 선택형)
+data = {
+    '복지 개선':     [1, 0, 1, 1, 0, 0, 1],
+    '근무 환경':     [0, 1, 1, 0, 1, 1, 0],
+    '성과 보상':     [1, 1, 0, 0, 0, 1, 1],
+    '리더십 소통':   [0, 0, 1, 1, 1, 1, 0]
+}
+df = pd.DataFrame(data)
+
+# 응답 수 계산 (선택된 수 == 1)
+counts = df.sum()
+
+# 시각화
+fig, ax = plt.subplots(figsize=(8, 4))
+
+# 바 색상 설정
+bar_color = '#4D4D4D'
+
+# 바 그리기 (한 줄씩)
+for i, (question, count) in enumerate(counts.items()):
+    ax.barh(i, count, color=bar_color, height=0.6)
+
+    # 응답 수 텍스트 (흰색, 우측 끝 안쪽에)
+    ax.text(count - 0.2, i, f'{int(count)}', va='center', ha='right',
+            color='white', fontsize=10, fontweight='bold')
+
+    # 좌측 질문명 텍스트
+    ax.text(-0.2, i, question, va='center', ha='right', fontsize=11, fontweight='bold')
+
+# 설명 텍스트 (우측 상단)
+ax.text(counts.max() + 1, len(counts) - 0.5, '선택형 문항 응답 수 (단일 선택)', fontsize=10)
+
+# 레이아웃 정리
+ax.set_xlim(0, counts.max() + 2)
+ax.set_ylim(-0.5, len(counts) - 0.5)
+ax.set_yticks([])
+ax.set_xticks([])
+
+# 축 제거
+for spine in ['top', 'bottom', 'left', 'right']:
+    ax.spines[spine].set_visible(False)
+
+plt.tight_layout()
+plt.show()
